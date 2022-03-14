@@ -1,0 +1,60 @@
+* {
+    box-sizing: border-box;
+}
+
+.grupos,
+.resultado {
+    width: 100vw;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+div,
+fieldset {
+    width: fit-content;
+}
+
+legend {
+    padding: 0.2em 0.5em;
+    border: 1px solid rgb(53, 111, 236);
+    color: rgb(53, 111, 236);
+}
+
+label {
+    display: inline-block;
+    width: 50px;
+    font-family: monospace;
+    font-size: 17px;
+}
+
+input {
+    width: 450px;
+}
+
+#btnImprimeBriefing {
+    margin: 30px;
+}
+
+table {
+    margin: 10px;
+    font-size: 25px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+th {
+    background-color: rgb(16, 37, 63);
+    color: white;
+}
+
+tr:nth-child(odd) {
+    background-color: rgb(208, 216, 232);
+}
+
+tr:nth-child(even) {
+    background-color: rgb(233, 237, 244);
+}
+
+p {
+    margin: 0;
+}
