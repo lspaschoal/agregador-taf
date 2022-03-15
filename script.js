@@ -1,12 +1,12 @@
 // Grupos de localidades. Cada grupo gera um fieldset com o nome da propriedade, onde são criados os inputs para cada aerodromo
-const grupos = {
+const briefinglatam = {
     'tma-rj': ['sbgl.gig', 'sbrj.sdu'],
-    'tma-sp': ['sbgr.gru', 'sbsp.vcp', 'sbkp.vcp'],
+    'tma-sp': ['sbgr.gru', 'sbsp.cgh', 'sbkp.vcp'],
     'fir-az': ['sbsl.slz', 'sbiz.imp', 'sbbe.bel', 'sbsn.stm', 'sbma.mab', 'sbmq.mcp', 'sbeg.mao',
-        'sbbv.bvb', 'sbpv.pvh', 'sbrb.rbr', 'sbcy.cgb'
+        'sbbv.bvb', 'sbpv.pvh', 'sbrb.rbr', 'sbcy.cgb','sbsi.ops'
     ],
-    'fir-re': ['sbvt.vix', 'sbps.bps', 'sbil.ios', 'sbvc.vdc', 'sbsv.ssa', 'sbar.ria', 'sbmo.mcz',
-        'sbrf.rec', 'sbpl.pnz', 'sbjp.jpa', 'sbsg.nat', 'sbfz.for', 'sbte.the'
+    'fir-re': ['sbvt.vix', 'sbps.bps', 'sbil.ios', 'sbvc.vdc', 'sbsv.ssa', 'sbar.aju', 'sbmo.mcz',
+        'sbrf.rec', 'sbpl.pnz', 'sbjp.jpa', 'sbsg.nat', 'sbfz.for', 'sbju.jdo','sbje.jjd','sbte.the'
     ],
     'fir-bs': ['sbpj.pmw', 'sbbr.bsb', 'sbgo.gyn', 'sbcn.clv', 'sbcf.cnf', 'sbul.udi', 'sbrp.rao',
         'sbsr.sjp', 'sbae.bau', 'sdsc.qsc'
@@ -16,7 +16,7 @@ const grupos = {
     ]
 }
 // Cria o array para iteração dos grupos e aeródromos
-const GRUPOS = Object.entries(grupos);
+const GRUPOS = Object.entries(briefinglatam);
 
 // Métodos úteis na exibição dos dados
 // Retorna o codigo icao de uma localidade selecionada
