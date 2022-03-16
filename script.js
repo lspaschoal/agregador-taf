@@ -17,7 +17,7 @@ const briefing3 = {
     ]
 }
 // Cria o array para iteração dos grupos e aeródromos
-const GRUPOS = Object.entries(briefinglatam);
+const GRUPOS = Object.entries(briefing3);
 
 // Métodos úteis na exibição dos dados
 // Retorna o codigo icao de uma localidade selecionada
