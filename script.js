@@ -117,7 +117,7 @@ const imprimeBriefing = function () {
                 for (let k = 0; k < condicoes_localidades[j][1].length; k++) {
                     p.textContent += iata(condicoes_localidades[j][1][k]);
                     if (k < condicoes_localidades[j][1].length - 1) {
-                        p.textContent += ' / ';
+                        p.textContent += '/';
                     }
                 }
                 p.textContent += ' - ' + condicoes_localidades[j][0];
