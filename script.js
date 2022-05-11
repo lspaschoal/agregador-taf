@@ -6,7 +6,7 @@ const briefing3 = {
     'fir-az': ['sbsl.slz', 'sbiz.imp', 'sbbe.bel', 'sbsn.stm', 'sbma.mab', 'sbmq.mcp', 'sbeg.mao',
         'sbbv.bvb', 'sbpv.pvh', 'sbrb.rbr', 'sbcy.cgb','sbsi.ops'
     ],
-    'fir-re': ['sbvt.vix', 'sbps.bps', 'sbil.ios', 'sbvc.vdc', 'sbsv.ssa', 'sbar.aju', 'sbmo.mcz',
+    'fir-re': ['sbvt.vix', 'sbps.bps', 'sbil.ios', 'sbtc.una', 'sbvc.vdc', 'sbsv.ssa', 'sbar.aju', 'sbmo.mcz',
         'sbrf.rec', 'sbpl.pnz', 'sbjp.jpa', 'sbsg.nat', 'sbfz.for', 'sbju.jdo','sbje.jjd','sbte.the'
     ],
     'fir-bs': ['sbpj.pmw', 'sbbr.bsb', 'sbgo.gyn', 'sbcn.clv', 'sbcf.cnf', 'sbul.udi', 'sbrp.rao',
@@ -109,7 +109,7 @@ const imprimeBriefing = function () {
         // celula com a condição meteorológica
         let td2 = document.createElement('td');
         if (Object.keys(briefing[GRUPOS[i][0]]).length === 0) {
-            td2.textContent = 'Sem previsão significativa';
+            td2.textContent = 'Sem previsão significativa;';
         } else {
             let condicoes_localidades = Object.entries(briefing[GRUPOS[i][0]]);
             for (let j = 0; j < condicoes_localidades.length; j++) {
@@ -120,7 +120,7 @@ const imprimeBriefing = function () {
                         p.textContent += '/';
                     }
                 }
-                p.textContent += ' - ' + condicoes_localidades[j][0];
+                p.textContent += ' - ' + condicoes_localidades[j][0] + ';';
                 td2.appendChild(p);
             }
         }
