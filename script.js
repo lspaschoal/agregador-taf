@@ -9,12 +9,14 @@ const briefing3 = {
     'fir-re': ['sbvt.vix', 'sbps.bps', 'sbil.ios', 'sbtc.una', 'sbvc.vdc', 'sbsv.ssa', 'sbar.aju', 'sbmo.mcz',
         'sbrf.rec', 'sbpl.pnz', 'sbjp.jpa', 'sbsg.nat', 'sbfz.for', 'sbju.jdo','sbje.jjd','sbte.the'
     ],
-    'fir-bs': ['sbpj.pmw', 'sbbr.bsb', 'sbgo.gyn', 'sbcn.clv', 'sbcf.cnf', 'sbul.udi', 'sbrp.rao',
+    'fir-bs': ['sbpj.pmw', 'sbbr.bsb', 'sbgo.gyn', 'sbcn.clv', 'sbcf.cnf', 'sbul.udi', 'sbmk.moc', 'sbrp.rao',
         'sbsr.sjp', 'sbae.bau', 'sdsc.qsc'
     ],
-    'fir-cw': ['sbpa.poa', 'sbcx.cxj', 'sbfl.fln', 'sbnf.nvt', 'sbjv.joi', 'sbch.xap', 'sbja.jjg',
-        'sbct.cwb', 'sbfi.igu', 'sblo.ldb', 'sbmg.mgf', 'sbcg.cgr'
-    ]
+    'fir-cw': ['sbdn.ppb', 'sbzm.iza', 'sbpa.poa', 'sbcx.cxj', 'sbfl.fln', 'sbnf.nvt', 'sbjv.joi', 'sbch.xap', 'sbja.jjg',
+        'sbct.cwb', 'sbfi.igu', 'sblo.ldb', 'sbmg.mgf', 'sbca.cac', 'sbcg.cgr'
+    ],
+    'argentina': ['saez.eze', 'sabe.aep'],
+    'uruguai': ['sumu.mvd', 'suls.pdp']
 }
 // Cria o array para iteração dos grupos e aeródromos
 const GRUPOS = Object.entries(briefing3);
