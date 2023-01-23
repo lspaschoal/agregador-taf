@@ -2,64 +2,64 @@
 
 const briefing = {
     'tma-rj': [
-        'SBGL.GIG',
-        'SBRJ.SDU'
+        'SBGL.GIG.principal',
+        'SBRJ.SDU.principal'
     ],
     'tma-sp': [
-        'SBGR.GRU',
-        'SBSP.CGH',
-        'SBKP.VCP'
+        'SBGR.GRU.principal',
+        'SBSP.CGH.principal',
+        'SBKP.VCP.principal'
     ],
     'fir-az': [
-        'SBSL.SLZ',
-        'SBIZ.IMP',
-        'SBBE.BEL',
-        'SBSN.STM',
+        'SBSL.SLZ.principal',
+        'SBIZ.IMP.principal',
+        'SBBE.BEL.principal',
+        'SBSN.STM.principal',
         'SBMA.MAB',
         'SBHT.ATM',
         'SBCJ.CKS',
-        'SBMQ.MCP',
-        'SBEG.MAO',
+        'SBMQ.MCP.principal',
+        'SBEG.MAO.principal',
         'SBTT.TBT',
         'SBTF.TFF',
-        'SBBV.BVB',
-        'SBPV.PVH',
-        'SBRB.RBR',
+        'SBBV.BVB.principal',
+        'SBPV.PVH.principal',
+        'SBRB.RBR.principal',
         'SBCZ.CZS',
-        'SBCY.CGB',
+        'SBCY.CGB.principal',
         'SBSI.OPS',
         'SBRD.ROO',
         'SBAT.AFL'
     ],
     'fir-re': [
-        'SBVT.VIX',
+        'SBVT.VIX.principal',
         'SBPS.BPS',
         'SBIL.IOS',
         'SBTC.UMA',
         'SBVC.VDC',
-        'SBSV.SSA',
-        'SBAR.AJU',
-        'SBMO.MCZ',
-        'SBRF.REC',
+        'SBSV.SSA.principal',
+        'SBAR.AJU.principal',
+        'SBMO.MCZ.principal',
+        'SBRF.REC.principal',
         'SBFN.FEN',
         'SBPL.PNZ',
-        'SBJP.JPA',
+        'SBJP.JPA.principal',
         'SBKG.CPV',
-        'SBSG.NAT',
-        'SBFZ.FOR',
+        'SBSG.NAT.principal',
+        'SBFZ.FOR.principal',
         'SBJU.JDO',
         'SBJE.JJD',
         'SBAC.ARX',
-        'SBTE.THE',
+        'SBTE.THE.principal',
         'SBPB.PHB'
     ],
     'fir-bs': [
-        'SBBR.BSB',
-        'SBGO.GYN',
-        'SBPJ.PMW',
+        'SBBR.BSB.principal',
+        'SBGO.GYN.principal',
+        'SBPJ.PMW.principal',
         'SBCN.CLV',
-        'SBCF.CNF',
-        'SBBH.PLU',
+        'SBCF.CNF.principal',
+        'SBBH.PLU.principal',
         'SBLS.SBLS',
         'SBUL.UDI',
         'SBUR.UBA',
@@ -73,32 +73,25 @@ const briefing = {
         'SBME.MEA',
         'SBDN.PPB',
         'SBZM.IZA',
-        'SBPA.POA',
+        'SBPA.POA.principal',
         'SBCX.CXJ',
         'SBUG.URG',
         'SBBG.BGX',
         'SBPK.PET',
-        'SBFL.FLN',
-        'SBNF.NVT',
+        'SBFL.FLN.principal',
+        'SBNF.NVT.principal',
         'SBJV.JOI',
         'SBCH.XAP',
         'SBJA.JJG',
-        'SBCT.CWB',
+        'SBCT.CWB.principal',
         'SBBI.BFH',
-        'SBFI.IGU',
+        'SBFI.IGU.principal',
         'SBLO.LDB',
         'SBMG.MGF',
         'SBCA.CAC',
-        'SBCG.CGR',
+        'SBCG.CGR.principal',
         'SBDB.BYO',
         'SBDO.DOU',
-    ],
-    'argentina': [
-        'SAEZ.EZE',
-        'SABE.AEP'],
-    'uruguai': [
-        'SUMU.MVD',
-        'SULS.PDP'
     ]
 }
 // Cria o array para iteração dos grupos e aeródromos
@@ -108,7 +101,7 @@ const GRUPOS = Object.entries(briefing);
 // Retorna o codigo icao de uma localidade selecionada
 const icao = localidade => localidade.substring(0, 4);
 // Retorna o codigo iata de uma localidade selecionada
-const iata = localidade => localidade.substring(5);
+const iata = localidade => localidade.substring(5, 8);
 
 // Retorna a lista de ICAOs cadastrados
 const getAllICAO = () => {
@@ -132,7 +125,7 @@ function getData(url) {
 
 // Edita os TAFS para exibição
 const tabulaTAF = (taf) => {
-    return taf.replace('TX',',TX').replaceAll('BECMG',',BECMG').replaceAll('TEMPO',',TEMPO').replaceAll('PROB',',PROB').replaceAll('RMK',',RMK').split(',');
+    return taf.replace('TX', ',TX').replaceAll('BECMG', ',BECMG').replaceAll('TEMPO', ',TEMPO').split(',');
 }
 
 // Gera os campos para inserir a informação
@@ -157,7 +150,7 @@ const gerarCampos = function () {
             .then(dados => {
                 let mensagens = new Map();
                 dados.forEach(resposta => {
-                    if (resposta.data.data.length > 0) mensagens.set(resposta.data.data[0].id_localidade,resposta.data.data[0].mens);
+                    if (resposta.data.data.length > 0) mensagens.set(resposta.data.data[0].id_localidade, resposta.data.data[0].mens);
                 });
                 // Lendo cada aerodromo do array grupos e criando uma label e um input pra cada um deles
                 for (let j = 0; j < GRUPOS[i][1].length; j++) {
@@ -168,13 +161,13 @@ const gerarCampos = function () {
                     // Cria a div com o TAF
                     let div_taf = document.createElement('div');
                     div_taf.classList.add('div_taf');
-                    
+
                     if (mensagens.has(icao(GRUPOS[i][1][j]))) {
                         let msg = tabulaTAF(mensagens.get(icao(GRUPOS[i][1][j])));
                         msg.forEach(segmento => (msg.indexOf(segmento) > 0) ? div_taf.innerHTML += segmento + '<br>' : div_taf.innerHTML += segmento);
                     } else {
                         div_taf.textContent = `Mensagem TAF de ${icao(GRUPOS[i][1][j])} não localizada na base de dados da REDEMET`;
-                        div_taf.style.setProperty('color','red');
+                        div_taf.style.setProperty('color', 'red');
                     }
                     div.appendChild(div_taf);
                     // Cria a label de cada aerodromo
@@ -198,18 +191,22 @@ const gerarBriefing = function () {
     let briefing = {};
     // Cria as chaves para os briefings de cada grupo
     for (let i = 0; i < GRUPOS.length; i++) {
-        briefing[GRUPOS[i][0]] = {};
+        briefing[GRUPOS[i][0]] = { 'nao_significativa': [] };
         // Lê cada input e se não for nulo insere o briefing pago se não existir, ou se já existir outro adiciona o aerodromo igual
         for (let j = 0; j < GRUPOS[i][1].length; j++) {
             // Se não houver briefing para o aerodromo iterado, o próximo é avaliado
             let input = document.getElementById(GRUPOS[i][1][j]);
-            if (!input.value) continue;
+            //if (!input.value) continue
+            if (!input.value) {
+                if (GRUPOS[i][1][j].indexOf('principal') > -1) briefing[GRUPOS[i][0]]['nao_significativa'].push(input.id);
+                continue;
+            }
             // Verifica se o briefing pago já existe nesse grupo. Se não existir insere o briefing e o areodromo, se existir adiciona o aerodromo
-            let condicao = document.getElementById(GRUPOS[i][1][j]).value;
+            let condicao = input.value;
             if (condicao in briefing[GRUPOS[i][0]]) {
                 let el = briefing[GRUPOS[i][0]];
                 let elCondicao = el[condicao];
-                elCondicao.push(GRUPOS[i][1][j]);
+                elCondicao.push(input.id);
             } else {
                 let el = briefing[GRUPOS[i][0]];
                 el[condicao] = [input.id];
@@ -226,7 +223,7 @@ const imprimeBriefing = function () {
     let briefing = gerarBriefing();
     // Cria a tabela para exibição
     let tabela = document.createElement('table');
-    tabela.style.border = '1px solid';
+    tabela.classList.add('coordenacao');
     // Criar cabeçalho
     let cabecalho = document.createElement('tr');
     let th1 = document.createElement('th');
@@ -236,35 +233,33 @@ const imprimeBriefing = function () {
     th2.textContent = 'PREVISÕES';
     cabecalho.appendChild(th2);
     tabela.appendChild(cabecalho);
-    // Cria as linhas baseadas em cada grupo
+    // Cria as linhas baseadas em cada grupo. O índice começa em 1 pois pula a chave 'nao_significativa' para gerar a string de
+    // "Sem previsão significativa" corretamente
     for (let i = 0; i < GRUPOS.length; i++) {
         // nova linha
         let tr = document.createElement('tr');
         tabela.appendChild(tr);
         // celula com o nome do grupo
         let td1 = document.createElement('td');
+        td1.classList.add('coluna_fir')
         let grupo = GRUPOS[i][0].toUpperCase();
         td1.textContent = grupo;
         tr.appendChild(td1);
         // celula com a condição meteorológica
         let td2 = document.createElement('td');
-        if (Object.keys(briefing[GRUPOS[i][0]]).length === 0) {
-            td2.textContent = 'Sem previsão significativa;';
-        } else {
-            let condicoes_localidades = Object.entries(briefing[GRUPOS[i][0]]);
-            for (let j = 0; j < condicoes_localidades.length; j++) {
-                let p = document.createElement('p');
-                p.textContent = 'Previsão de ' + condicoes_localidades[j][0] + ' para ';
-                for (let k = 0; k < condicoes_localidades[j][1].length; k++) {
-                    p.textContent += iata(condicoes_localidades[j][1][k]);
-                    if (k < condicoes_localidades[j][1].length - 1) {
-                        p.textContent += '/';
-                    }
+        let condicoes_localidades = Object.entries(briefing[GRUPOS[i][0]]);
+        for (let j = 0; j < condicoes_localidades.length; j++) {
+            let p = document.createElement('p');
+            (condicoes_localidades[j][0] === 'nao_significativa') ? p.textContent = 'Sem previsão significativa para ' : p.textContent = 'Previsão de ' + condicoes_localidades[j][0] + ' para ';
+            for (let k = 0; k < condicoes_localidades[j][1].length; k++) {
+                p.textContent += iata(condicoes_localidades[j][1][k]);
+                if (k < condicoes_localidades[j][1].length - 1) {
+                    p.textContent += '/';
                 }
-                td2.appendChild(p);
             }
+            td2.appendChild(p);
+            tr.appendChild(td2);
         }
-        tr.appendChild(td2);
     }
     document.getElementById('resultado').appendChild(tabela);
 }
@@ -275,3 +270,13 @@ const limpaTabela = function () {
         document.getElementById('resultado').removeChild(document.getElementById('resultado').firstChild);
     }
 }
+
+// Escolha de estilo da tabela
+document.getElementById('formato-abr').addEventListener('click',() => {
+    const tabela = document.querySelector('table');
+    tabela.setAttribute('class','abr')
+});
+document.getElementById('formato-coordenacao').addEventListener('click',() => {
+    const tabela = document.querySelector('table');
+    tabela.setAttribute('class','coordenacao')
+});

@@ -18,8 +18,21 @@
     </div>
     -->
     <div id="formulario" class="grupos"></div>
-    <div class="resultado">
-        <input id="btnImprimeBriefing" type="button" value="Gerar Briefing" onclick="imprimeBriefing()">
+    <div class="interface">
+        <div>
+            <input id="btnImprimeBriefing" type="button" value="Gerar Briefing" onclick="imprimeBriefing()">
+        </div>
+        <div class="select">
+            <span>Formatação: </span>
+            <span>
+                <input type="radio" name="formato" id="formato-abr" value="abr">
+                <label for="formato-abr">ABR</label>
+            </span>
+            <span>
+                <input type="radio" name="formato" id="formato-coordenacao" value="coordenacao" checked>
+                <label for="formato-coordenacao">Coordenação</label>
+            </span>
+        </div>
     </div>
     <div class="resultado">
         <div id="resultado"></div>

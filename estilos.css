@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "Intro Bold";
+    src: url('./fonts/Intro Bold Regular.ttf');
+  }
+
 * {
     box-sizing: border-box;
 }
@@ -8,6 +13,22 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+}
+
+.interface{
+    flex-direction: column;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.select{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+input[type="radio"]{
+    width: fit-content;
 }
 
 div,
@@ -38,21 +59,40 @@ input {
 
 table {
     margin: 10px;
+    border: 1px solid;
     font-size: 25px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-th {
+.coordenacao > tr > th {
     background-color: rgb(16, 37, 63);
     color: white;
 }
 
-tr:nth-child(odd) {
+.coordenacao > tr:nth-child(odd) {
     background-color: rgb(233, 237, 244);
 }
 
-tr:nth-child(even) {
+.coordenacao > tr:nth-child(even) {
     background-color: rgb(208, 216, 232);
+}
+
+.abr > tr > th {
+    background-color: rgb(0, 0, 222);
+    color: white;
+    font-family: 'Intro Bold';
+}
+
+.abr > tr:nth-child(odd) {
+    background-color: rgb(222, 235, 247);
+}
+
+.abr > tr:nth-child(even) {
+    background-color: rgb(222, 235, 247);
+}
+
+.coluna_fir{
+    text-align: center;
 }
 
 p {
