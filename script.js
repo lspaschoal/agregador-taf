@@ -248,6 +248,7 @@ const imprimeBriefing = function () {
         let td2 = document.createElement('td');
         let condicoes_localidades = Object.entries(briefing[GRUPOS[i][0]]);
         for (let j = 0; j < condicoes_localidades.length; j++) {
+            if(condicoes_localidades[j][1].length){
             let p = document.createElement('p');
             (condicoes_localidades[j][0] === 'nao_significativa') ? p.textContent = 'Sem previsão significativa para ' : p.textContent = 'Previsão de ' + condicoes_localidades[j][0] + ' para ';
             for (let k = 0; k < condicoes_localidades[j][1].length; k++) {
@@ -256,6 +257,7 @@ const imprimeBriefing = function () {
                     p.textContent += '/';
                 }
             }
+        }
             td2.appendChild(p);
             tr.appendChild(td2);
         }
