@@ -196,13 +196,12 @@ const gerarBriefing = function () {
         for (let j = 0; j < GRUPOS[i][1].length; j++) {
             // Se não houver briefing para o aerodromo iterado, o próximo é avaliado
             let input = document.getElementById(GRUPOS[i][1][j]);
-            //if (!input.value) continue
             if (!input.value) {
                 if (GRUPOS[i][1][j].indexOf('principal') > -1) briefing[GRUPOS[i][0]]['nao_significativa'].push(input.id);
                 continue;
             }
             // Verifica se o briefing pago já existe nesse grupo. Se não existir insere o briefing e o areodromo, se existir adiciona o aerodromo
-            let condicao = input.value;
+            let condicao = input.value.toLowerCase();
             if (condicao in briefing[GRUPOS[i][0]]) {
                 let el = briefing[GRUPOS[i][0]];
                 let elCondicao = el[condicao];
