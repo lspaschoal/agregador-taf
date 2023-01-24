@@ -196,6 +196,7 @@ const gerarBriefing = function () {
         for (let j = 0; j < GRUPOS[i][1].length; j++) {
             // Se não houver briefing para o aerodromo iterado, o próximo é avaliado
             let input = document.getElementById(GRUPOS[i][1][j]);
+            //if (!input.value) continue
             if (!input.value) {
                 if (GRUPOS[i][1][j].indexOf('principal') > -1) briefing[GRUPOS[i][0]]['nao_significativa'].push(input.id);
                 continue;
@@ -248,7 +249,7 @@ const imprimeBriefing = function () {
         let td2 = document.createElement('td');
         let condicoes_localidades = Object.entries(briefing[GRUPOS[i][0]]);
         for (let j = 0; j < condicoes_localidades.length; j++) {
-            if(condicoes_localidades[j][1].length){
+            if (condicoes_localidades[j][0] === 'nao_significativa' && condicoes_localidades[j][1].length === 0) continue
             let p = document.createElement('p');
             (condicoes_localidades[j][0] === 'nao_significativa') ? p.textContent = 'Sem previsão significativa para ' : p.textContent = 'Previsão de ' + condicoes_localidades[j][0] + ' para ';
             for (let k = 0; k < condicoes_localidades[j][1].length; k++) {
@@ -257,7 +258,6 @@ const imprimeBriefing = function () {
                     p.textContent += '/';
                 }
             }
-        }
             td2.appendChild(p);
             tr.appendChild(td2);
         }
