@@ -125,7 +125,7 @@ function getData(url) {
 
 // Edita os TAFS para exibição
 const tabulaTAF = (taf) => {
-    return taf.replace('TX', ',TX').replaceAll('BECMG', ',BECMG').replaceAll('TEMPO', ',TEMPO').split(',');
+    return taf.replace('TN', ',TN').replaceAll('BECMG', ',BECMG').replaceAll('TEMPO', ',TEMPO').replace('PROB', ',PROB').split(',');
 }
 
 // Gera os campos para inserir a informação
