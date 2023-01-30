@@ -138,6 +138,29 @@ const gerarCampos = function () {
         fs.appendChild(leg);
         document.getElementById('formulario').appendChild(fs);
 
+        // Cria os campos para preenchimento
+        for (let j = 0; j < GRUPOS[i][1].length; j++) {
+            //Cria uma div pra cada aerodromo
+            let div = document.createElement('div');
+            div.classList.add('div_ad');
+            fs.appendChild(div);
+            // Cria a para o TAF
+            let div_taf = document.createElement('div');
+            div_taf.classList.add('div_taf');
+            div_taf.id = `taf${icao(GRUPOS[i][1][j])}`;
+            div.appendChild(div_taf);
+            // Cria a label de cada aerodromo
+            let label = document.createElement('label');
+            label.textContent = icao(GRUPOS[i][1][j]);
+            label.classList.add('label_icao')
+            div.appendChild(label);
+            // Cria o input de cada aerodromo
+            let input = document.createElement('input');
+            input.type = 'text';
+            input.id = GRUPOS[i][1][j];
+            div.appendChild(input);
+        }
+
         let requisicoes = [];
 
         // Gerando as urls para as promises
@@ -152,34 +175,13 @@ const gerarCampos = function () {
                 dados.forEach(resposta => {
                     if (resposta.data.data.length > 0) mensagens.set(resposta.data.data[0].id_localidade, resposta.data.data[0].mens);
                 });
-                // Lendo cada aerodromo do array grupos e criando uma label e um input pra cada um deles
-                for (let j = 0; j < GRUPOS[i][1].length; j++) {
-                    //Cria uma div pra cada aerodromo
-                    let div = document.createElement('div');
-                    div.classList.add('div_ad');
-                    fs.appendChild(div);
-                    // Cria a div com o TAF
-                    let div_taf = document.createElement('div');
-                    div_taf.classList.add('div_taf');
-
-                    if (mensagens.has(icao(GRUPOS[i][1][j]))) {
-                        let msg = tabulaTAF(mensagens.get(icao(GRUPOS[i][1][j])));
-                        msg.forEach(segmento => (msg.indexOf(segmento) > 0) ? div_taf.innerHTML += segmento + '<br>' : div_taf.innerHTML += segmento);
-                    } else {
-                        div_taf.textContent = `Mensagem TAF de ${icao(GRUPOS[i][1][j])} não localizada na base de dados da REDEMET`;
-                        div_taf.style.setProperty('color', 'red');
-                    }
-                    div.appendChild(div_taf);
-                    // Cria a label de cada aerodromo
-                    let label = document.createElement('label');
-                    label.textContent = icao(GRUPOS[i][1][j]);
-                    label.classList.add('label_icao')
-                    div.appendChild(label);
-                    // Cria o input de cada aerodromo
-                    let input = document.createElement('input');
-                    input.type = 'text';
-                    input.id = GRUPOS[i][1][j];
-                    div.appendChild(input);
+                let div_taf = document.getElementById(`taf${icao(GRUPOS[i][1][j])}`);
+                if (mensagens.has(icao(GRUPOS[i][1][j]))) {
+                    let msg = tabulaTAF(mensagens.get(icao(GRUPOS[i][1][j])));
+                    msg.forEach(segmento => (msg.indexOf(segmento) > 0) ? div_taf.innerHTML += segmento + '<br>' : div_taf.innerHTML += segmento);
+                } else {
+                    div_taf.textContent = `Mensagem TAF de ${icao(GRUPOS[i][1][j])} não localizada na base de dados da REDEMET`;
+                    div_taf.style.setProperty('color', 'red');
                 }
             });
     }
@@ -273,11 +275,11 @@ const limpaTabela = function () {
 }
 
 // Escolha de estilo da tabela
-document.getElementById('formato-abr').addEventListener('click',() => {
+document.getElementById('formato-abr').addEventListener('click', () => {
     const tabela = document.querySelector('table');
-    tabela.setAttribute('class','abr')
+    tabela.setAttribute('class', 'abr')
 });
-document.getElementById('formato-coordenacao').addEventListener('click',() => {
+document.getElementById('formato-coordenacao').addEventListener('click', () => {
     const tabela = document.querySelector('table');
-    tabela.setAttribute('class','coordenacao')
+    tabela.setAttribute('class', 'coordenacao')
 });
