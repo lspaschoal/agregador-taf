@@ -171,21 +171,25 @@ const gerarCampos = function () {
         // Buscando os TAF no REDEMET
         Promise.all(requisicoes)
             .then(dados => {
-                let mensagens = new Map();
+                // Inserindo os TAF nos  campos
                 dados.forEach(resposta => {
-                    if (resposta.data.data.length > 0) mensagens.set(resposta.data.data[0].id_localidade, resposta.data.data[0].mens);
+                    if (resposta.data.data[0]) {
+                        let div_taf = document.getElementById(`taf${resposta.data.data[0].id_localidade}`);
+                        div_taf.textContent = resposta.data.data[0].mens;
+                    }
                 });
-                let div_taf = document.getElementById(`taf${icao(GRUPOS[i][1][j])}`);
-                if (mensagens.has(icao(GRUPOS[i][1][j]))) {
-                    let msg = tabulaTAF(mensagens.get(icao(GRUPOS[i][1][j])));
-                    msg.forEach(segmento => (msg.indexOf(segmento) > 0) ? div_taf.innerHTML += segmento + '<br>' : div_taf.innerHTML += segmento);
-                } else {
-                    div_taf.textContent = `Mensagem TAF de ${icao(GRUPOS[i][1][j])} não localizada na base de dados da REDEMET`;
-                    div_taf.style.setProperty('color', 'red');
-                }
-            });
+                // inserindo os campos dos TAF não dinponíveis
+                getAllICAO().forEach(icao => {
+                    let div_taf = document.getElementById(`taf${icao}`);
+                    if (div_taf.textContent === '') {
+                        div_taf.textContent = `Mensagem TAF de ${icao} não localizada na base de dados da REDEMET`;
+                        div_taf.style.setProperty('color', 'red');
+                    };
+                })
+            })
     }
 }
+
 // Chamada da função ao carregar a página
 gerarCampos();
 
@@ -193,7 +197,9 @@ const gerarBriefing = function () {
     let briefing = {};
     // Cria as chaves para os briefings de cada grupo
     for (let i = 0; i < GRUPOS.length; i++) {
-        briefing[GRUPOS[i][0]] = { 'nao_significativa': [] };
+        briefing[GRUPOS[i][0]] = {
+            'nao_significativa': []
+        };
         // Lê cada input e se não for nulo insere o briefing pago se não existir, ou se já existir outro adiciona o aerodromo igual
         for (let j = 0; j < GRUPOS[i][1].length; j++) {
             // Se não houver briefing para o aerodromo iterado, o próximo é avaliado
@@ -253,7 +259,7 @@ const imprimeBriefing = function () {
         for (let j = 0; j < condicoes_localidades.length; j++) {
             if (condicoes_localidades[j][0] === 'nao_significativa' && condicoes_localidades[j][1].length === 0) continue
             let p = document.createElement('p');
-            (condicoes_localidades[j][0] === 'nao_significativa') ? p.textContent = 'Sem previsão significativa para ' : p.textContent = 'Previsão de ' + condicoes_localidades[j][0] + ' para ';
+            (condicoes_localidades[j][0] === 'nao_significativa') ? p.textContent = 'Sem previsão significativa para ': p.textContent = 'Previsão de ' + condicoes_localidades[j][0] + ' para ';
             for (let k = 0; k < condicoes_localidades[j][1].length; k++) {
                 p.textContent += iata(condicoes_localidades[j][1][k]);
                 if (k < condicoes_localidades[j][1].length - 1) {
