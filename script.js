@@ -175,7 +175,7 @@ const gerarCampos = function () {
                 dados.forEach(resposta => {
                     if (resposta.data.data[0]) {
                         let div_taf = document.getElementById(`taf${resposta.data.data[0].id_localidade}`);
-                        div_taf.textContent = resposta.data.data[0].mens;
+                        div_taf.textContent = tabulaTAF(resposta.data.data[0].mens);
                     }
                 });
                 // inserindo os campos dos TAF não dinponíveis
