@@ -125,7 +125,7 @@ function getData(url) {
 
 // Edita os TAFS para exibição
 const tabulaTAF = (taf) => {
-    return taf.replace('TN', ',TN').replaceAll('BECMG', ',BECMG').replaceAll('TEMPO', ',TEMPO').replace('PROB', ',PROB').split(',');
+    return taf.replace('TN', '<BR>TN').replaceAll('BECMG', '<BR>BECMG').replaceAll('TEMPO', '<BR>TEMPO').replaceAll('PROB', '<BR>PROB').replaceAll('RMK', '<BR>RMK');
 }
 
 // Gera os campos para inserir a informação
@@ -175,10 +175,8 @@ const gerarCampos = function () {
                 dados.forEach(resposta => {
                     if (resposta.data.data[0]) {
                         let div_taf = document.getElementById(`taf${resposta.data.data[0].id_localidade}`);
-                        
-                        //const msg = tabulaTAF(resposta.data.data[0].mens);
-                        //msg.forEach(segmento => {div_taf.innerHTML += segmento + '<br>'})
-                        div_taf.innerHTML = resposta.data.data[0].mens;
+                        const msg = tabulaTAF(resposta.data.data[0].mens);
+                        div_taf.innerHTML = msg;
                     }
                 });
                 // inserindo os campos dos TAF não dinponíveis
