@@ -212,6 +212,10 @@ const gerarBriefing = function () {
             }
             // Verifica se o briefing pago já existe nesse grupo. Se não existir insere o briefing e o areodromo, se existir adiciona o aerodromo
             let condicao = input.value.toLowerCase();
+            let horarios = [...condicao.matchAll(/\d+-\d+/g)];
+            horarios.forEach(item => {
+                condicao.replaceAll(item,`(${item[0].spit('-')[0]}:00 UTC às ${item[0].spit('-')[1]}:00 UTC)`);
+            })
             if (condicao in briefing[GRUPOS[i][0]]) {
                 let el = briefing[GRUPOS[i][0]];
                 let elCondicao = el[condicao];
