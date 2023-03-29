@@ -214,7 +214,7 @@ const gerarBriefing = function () {
             let condicao = input.value.toLowerCase();
             let horarios = [...condicao.matchAll(/\d+-\d+/g)];
             horarios.forEach(item => {
-                condicao = condicao.replaceAll(item[0],`(${item[0].split('-')[0]}:00 UTC às ${item[0].split('-')[1]}:00 UTC)`);
+                condicao = condicao.replaceAll(item[0],`(${(item[0].split('-')[0].length < 2)?'0'+item[0].split('-')[0]:item[0].split('-')[0]}:00 UTC às ${(item[0].split('-')[1].length < 2)?'0'+item[0].split('-')[1]:item[0].split('-')[1]}:00 UTC)`);
             })
             if (condicao in briefing[GRUPOS[i][0]]) {
                 let el = briefing[GRUPOS[i][0]];
