@@ -212,9 +212,17 @@ const gerarBriefing = function () {
             }
             // Verifica se o briefing pago já existe nesse grupo. Se não existir insere o briefing e o areodromo, se existir adiciona o aerodromo
             let condicao = input.value.toLowerCase();
-            let horarios = [...condicao.matchAll(/\d+-\d+/g)];
-            horarios.forEach(item => {
+            let horarios_de_ate = [...condicao.matchAll(/\d+-\d+/g)];
+            horarios_de_ate.forEach(item => {
                 condicao = condicao.replaceAll(item[0],`(${(item[0].split('-')[0].length < 2)?'0'+item[0].split('-')[0]:item[0].split('-')[0]}:00 UTC às ${(item[0].split('-')[1].length < 2)?'0'+item[0].split('-')[1]:item[0].split('-')[1]}:00 UTC)`);
+            })
+            let horarios_a_partir = [...condicao.matchAll(/\d+-/g)];
+            horarios_a_partir.forEach(item => {
+                condicao = condicao.replaceAll(item[0],`(a partir de ${(item[0].split('-')[0].length < 2)?'0'+item[0].split('-')[0]:item[0].split('-')[0]}:00 UTC)`);
+            })
+            let horarios_ate = [...condicao.matchAll(/-\d+/g)];
+            horarios_ate.forEach(item => {
+                condicao = condicao.replaceAll(item[0],`(até ${(item[0].split('-')[1].length < 2)?'0'+item[0].split('-')[1]:item[0].split('-')[1]}:00 UTC)`);
             })
             if (condicao in briefing[GRUPOS[i][0]]) {
                 let el = briefing[GRUPOS[i][0]];
