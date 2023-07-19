@@ -1,36 +1,36 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Agrupador de TAF</title>
-    <link rel="stylesheet" href="estilos.css">
-</head>
+    <link rel="stylesheet" href="estilos.css" />
+  </head>
 
-<body>
+  <body>
     <div id="formulario" class="grupos"></div>
     <div class="interface">
-        <div>
-            <input id="btnImprimeBriefing" type="button" value="Gerar Briefing" onclick="imprimeBriefing()">
-        </div>
-        <div class="select">
-            <span>Formatação: </span>
-            <span>
-                <input type="radio" name="formato" id="formato-abr" value="abr">
-                <label for="formato-abr">1</label>
-            </span>
-            <span>
-                <input type="radio" name="formato" id="formato-coordenacao" value="coordenacao" checked>
-                <label for="formato-coordenacao">2</label>
-            </span>
-        </div>
+      <div>
+        <input
+          id="btnImprimeBriefingCompleto"
+          class="btnImprimeBriefing"
+          type="button"
+          value="Gerar Briefing Completo"
+          onclick="imprimeBriefingCompleto()"
+        />
+        <input
+          id="btnImprimeBriefingSignificativo"
+          class="btnImprimeBriefing"
+          type="button"
+          value="Gerar Briefing Significativo"
+          onclick="imprimeBriefingSignificativo()"
+        />
+      </div>
     </div>
     <div class="resultado">
-        <div id="resultado"></div>
+      <div id="resultado"></div>
     </div>
     <script src="script.js"></script>
-</body>
-
+  </body>
 </html>
