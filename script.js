@@ -28,7 +28,7 @@ const briefing = {
     "SBVT.VIX.principal",
     "SBPS.BPS",
     "SBIL.IOS",
-    "SBTC.UMA",
+    "SBTC.UNA",
     "SBVC.VDC",
     "SBSV.SSA.principal",
     "SBAR.AJU.principal",
