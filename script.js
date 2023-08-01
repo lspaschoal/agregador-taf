@@ -28,7 +28,7 @@ const briefing = {
     "SBVT.VIX.principal",
     "SBPS.BPS",
     "SBIL.IOS",
-    "SBTC.UNA",
+    "SBTC.UMA",
     "SBVC.VDC",
     "SBSV.SSA.principal",
     "SBAR.AJU.principal",
@@ -197,7 +197,7 @@ const gerarCampos = function () {
 // Chamada da função ao carregar a página
 gerarCampos();
 
-const gerarBriefing = function () {
+const gerarBriefingComHorarios = function () {
   let briefing = {};
   // Cria as chaves para os briefings de cada grupo
   for (let i = 0; i < GRUPOS.length; i++) {
@@ -253,6 +253,23 @@ const gerarBriefing = function () {
           }:00 UTC)`
         );
       });
+      //atalhos de condição
+      condicao = condicao.replaceAll("ztsra", "trovoadas com chuva");
+      condicao = condicao.replaceAll("zrt", "restrição de teto");
+      condicao = condicao.replaceAll("zrv", "restrição de visibilidade");
+      condicao = condicao.replaceAll(
+        "zrtv",
+        "restrição de teto e visibilidade"
+      );
+      condicao = condicao.replaceAll("zbr", "névoa úmida");
+      condicao = condicao.replaceAll("zfg", "nevoeiro");
+      condicao = condicao.replaceAll("zhz", "névoa seca");
+      condicao = condicao.replaceAll("zra", "chuva moderada");
+      condicao = condicao.replaceAll("z+ra", "chuva forte");
+      condicao = condicao.replaceAll("z-ra", "chuva leve");
+      condicao = condicao.replaceAll("zdz", "chuvisco");
+      condicao = condicao.replaceAll("z+sh", "pancadas de chuva forte");
+      condicao = condicao.replaceAll("zsh", "pancadas de chuva");
       if (condicao in briefing[GRUPOS[i][0]]) {
         let el = briefing[GRUPOS[i][0]];
         let elCondicao = el[condicao];
@@ -266,11 +283,72 @@ const gerarBriefing = function () {
   return briefing;
 };
 
-const imprimeBriefingCompleto = function () {
+const gerarBriefingSemHorarios = function () {
+  let briefing = {};
+  // Cria as chaves para os briefings de cada grupo
+  for (let i = 0; i < GRUPOS.length; i++) {
+    briefing[GRUPOS[i][0]] = {
+      nao_significativa: [],
+    };
+    // Lê cada input e se não for nulo insere o briefing pago se não existir, ou se já existir outro adiciona o aerodromo igual
+    for (let j = 0; j < GRUPOS[i][1].length; j++) {
+      // Se não houver briefing para o aerodromo iterado, o próximo é avaliado
+      let input = document.getElementById(GRUPOS[i][1][j]);
+      //if (!input.value) continue
+      if (!input.value) {
+        if (GRUPOS[i][1][j].indexOf("principal") > -1)
+          briefing[GRUPOS[i][0]]["nao_significativa"].push(input.id);
+        continue;
+      }
+      // Verifica se o briefing pago já existe nesse grupo. Se não existir insere o briefing e o areodromo, se existir adiciona o aerodromo
+      let condicao = input.value.toLowerCase();
+      let horarios_de_ate = [...condicao.matchAll(/\d+-\d+/g)];
+      horarios_de_ate.forEach((item) => {
+        condicao = condicao.replaceAll(item[0], ``);
+      });
+      let horarios_a_partir = [...condicao.matchAll(/\d+-/g)];
+      horarios_a_partir.forEach((item) => {
+        condicao = condicao.replaceAll(item[0], ``);
+      });
+      let horarios_ate = [...condicao.matchAll(/-\d+/g)];
+      horarios_ate.forEach((item) => {
+        condicao = condicao.replaceAll(item[0], ``);
+      });
+      //atalhos de condição
+      condicao = condicao.replaceAll("ztsra", "trovoadas com chuva");
+      condicao = condicao.replaceAll("zrt", "restrição de teto");
+      condicao = condicao.replaceAll("zrv", "restrição de visibilidade");
+      condicao = condicao.replaceAll(
+        "zrtv",
+        "restrição de teto e visibilidade"
+      );
+      condicao = condicao.replaceAll("zbr", "névoa úmida");
+      condicao = condicao.replaceAll("zfg", "nevoeiro");
+      condicao = condicao.replaceAll("zhz", "névoa seca");
+      condicao = condicao.replaceAll("zra", "chuva moderada");
+      condicao = condicao.replaceAll("z+ra", "chuva forte");
+      condicao = condicao.replaceAll("z-ra", "chuva leve");
+      condicao = condicao.replaceAll("zdz", "chuvisco");
+      condicao = condicao.replaceAll("z+sh", "pancadas de chuva forte");
+      condicao = condicao.replaceAll("zsh", "pancadas de chuva");
+      if (condicao in briefing[GRUPOS[i][0]]) {
+        let el = briefing[GRUPOS[i][0]];
+        let elCondicao = el[condicao];
+        elCondicao.push(input.id);
+      } else {
+        let el = briefing[GRUPOS[i][0]];
+        el[condicao] = [input.id];
+      }
+    }
+  }
+  return briefing;
+};
+
+const imprimeBriefingSemHorarios = function () {
   limpaTabela();
   document.getElementById("resultado");
   // Gera o briefing
-  let briefing = gerarBriefing();
+  let briefing = gerarBriefingSemHorarios();
   // Cria a tabela para exibição
   let tabela = document.createElement("table");
   tabela.classList.add("coordenacao");
@@ -322,11 +400,11 @@ const imprimeBriefingCompleto = function () {
   document.getElementById("resultado").appendChild(tabela);
 };
 
-const imprimeBriefingSignificativo = function () {
+const imprimeBriefingComHorarios = function () {
   limpaTabela();
   document.getElementById("resultado");
   // Gera o briefing
-  let briefing = gerarBriefing();
+  let briefing = gerarBriefingComHorarios();
   // Cria a tabela para exibição
   let tabela = document.createElement("table");
   tabela.classList.add("coordenacao");
