@@ -255,12 +255,12 @@ const gerarBriefingComHorarios = function () {
       });
       //atalhos de condição
       condicao = condicao.replaceAll("ztsra", "trovoadas com chuva");
-      condicao = condicao.replaceAll("zrt", "restrição de teto");
-      condicao = condicao.replaceAll("zrv", "restrição de visibilidade");
       condicao = condicao.replaceAll(
         "zrtv",
         "restrição de teto e visibilidade"
       );
+      condicao = condicao.replaceAll("zrt", "restrição de teto");
+      condicao = condicao.replaceAll("zrv", "restrição de visibilidade");
       condicao = condicao.replaceAll("zbr", "névoa úmida");
       condicao = condicao.replaceAll("zfg", "nevoeiro");
       condicao = condicao.replaceAll("zhz", "névoa seca");
@@ -316,12 +316,12 @@ const gerarBriefingSemHorarios = function () {
       });
       //atalhos de condição
       condicao = condicao.replaceAll("ztsra", "trovoadas com chuva");
-      condicao = condicao.replaceAll("zrt", "restrição de teto");
-      condicao = condicao.replaceAll("zrv", "restrição de visibilidade");
       condicao = condicao.replaceAll(
         "zrtv",
         "restrição de teto e visibilidade"
       );
+      condicao = condicao.replaceAll("zrt", "restrição de teto");
+      condicao = condicao.replaceAll("zrv", "restrição de visibilidade");
       condicao = condicao.replaceAll("zbr", "névoa úmida");
       condicao = condicao.replaceAll("zfg", "nevoeiro");
       condicao = condicao.replaceAll("zhz", "névoa seca");
