@@ -63,6 +63,7 @@ const briefing = {
     "SDSC.QSC",
   ],
   "fir-cw": [
+    "SBCO.QNS.principal", //adicionado durante contingência de POA
     "SBME.MEA",
     "SBDN.PPB",
     "SBZM.IZA",
