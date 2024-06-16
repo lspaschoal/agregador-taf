@@ -260,10 +260,15 @@ const gerarBriefingComHorarios = function () {
         "zrtv",
         "restrição de teto e visibilidade"
       );
+      condicao = condicao.replaceAll(
+        "zrvt",
+        "restrição de teto e visibilidade"
+      );
       condicao = condicao.replaceAll("zrt", "restrição de teto");
       condicao = condicao.replaceAll("zrv", "restrição de visibilidade");
       condicao = condicao.replaceAll("zbr", "névoa úmida");
       condicao = condicao.replaceAll("zfg", "nevoeiro");
+      condicao = condicao.replaceAll("zbcfg", "nevoeiro de superfície");
       condicao = condicao.replaceAll("zhz", "névoa seca");
       condicao = condicao.replaceAll("zra", "chuva moderada");
       condicao = condicao.replaceAll("z+ra", "chuva forte");
@@ -271,6 +276,9 @@ const gerarBriefingComHorarios = function () {
       condicao = condicao.replaceAll("zdz", "chuvisco");
       condicao = condicao.replaceAll("z+sh", "pancadas de chuva forte");
       condicao = condicao.replaceAll("zsh", "pancadas de chuva");
+      condicao = condicao.replaceAll("zg", "rajadas de vento");
+      condicao = condicao.replaceAll("cb", "nuvens convectivas (CB)");
+      condicao = condicao.replaceAll("zcb", "formação de nuvens convectivas (CB)");
       if (condicao in briefing[GRUPOS[i][0]]) {
         let el = briefing[GRUPOS[i][0]];
         let elCondicao = el[condicao];
