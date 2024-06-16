@@ -198,6 +198,7 @@ const gerarCampos = function () {
 //Atalhos
 const substituiAtalhos = function(condicao){
   condicao = condicao.replaceAll("ztsra", "trovoadas com chuva");
+  condicao = condicao.replaceAll("zts", "trovoadas");
   condicao = condicao.replaceAll(
     "zrtv",
     "restrição de teto e visibilidade"
@@ -216,6 +217,7 @@ const substituiAtalhos = function(condicao){
   condicao = condicao.replaceAll("z+ra", "chuva forte");
   condicao = condicao.replaceAll("z-ra", "chuva leve");
   condicao = condicao.replaceAll("zdz", "chuvisco");
+  condicao = condicao.replaceAll("z-dz", "chuvisco leve");
   condicao = condicao.replaceAll("z+sh", "pancadas de chuva forte");
   condicao = condicao.replaceAll("zsh", "pancadas de chuva");
   condicao = condicao.replaceAll("zg", "rajadas de vento");
