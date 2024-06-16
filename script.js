@@ -195,6 +195,35 @@ const gerarCampos = function () {
   }
 };
 
+//Atalhos
+const substituiAtalhos = function(condicao){
+  condicao = condicao.replaceAll("ztsra", "trovoadas com chuva");
+  condicao = condicao.replaceAll(
+    "zrtv",
+    "restrição de teto e visibilidade"
+  );
+  condicao = condicao.replaceAll(
+    "zrvt",
+    "restrição de teto e visibilidade"
+  );
+  condicao = condicao.replaceAll("zrt", "restrição de teto");
+  condicao = condicao.replaceAll("zrv", "restrição de visibilidade");
+  condicao = condicao.replaceAll("zbr", "névoa úmida");
+  condicao = condicao.replaceAll("zfg", "nevoeiro");
+  condicao = condicao.replaceAll("zbcfg", "nevoeiro de superfície");
+  condicao = condicao.replaceAll("zhz", "névoa seca");
+  condicao = condicao.replaceAll("zra", "chuva moderada");
+  condicao = condicao.replaceAll("z+ra", "chuva forte");
+  condicao = condicao.replaceAll("z-ra", "chuva leve");
+  condicao = condicao.replaceAll("zdz", "chuvisco");
+  condicao = condicao.replaceAll("z+sh", "pancadas de chuva forte");
+  condicao = condicao.replaceAll("zsh", "pancadas de chuva");
+  condicao = condicao.replaceAll("zg", "rajadas de vento");
+  condicao = condicao.replaceAll("cb", "nuvens convectivas (CB)");
+  condicao = condicao.replaceAll("zcb", "formação de nuvens convectivas (CB)");
+  return condicao;
+}
+
 // Chamada da função ao carregar a página
 gerarCampos();
 
@@ -255,30 +284,8 @@ const gerarBriefingComHorarios = function () {
         );
       });
       //atalhos de condição
-      condicao = condicao.replaceAll("ztsra", "trovoadas com chuva");
-      condicao = condicao.replaceAll(
-        "zrtv",
-        "restrição de teto e visibilidade"
-      );
-      condicao = condicao.replaceAll(
-        "zrvt",
-        "restrição de teto e visibilidade"
-      );
-      condicao = condicao.replaceAll("zrt", "restrição de teto");
-      condicao = condicao.replaceAll("zrv", "restrição de visibilidade");
-      condicao = condicao.replaceAll("zbr", "névoa úmida");
-      condicao = condicao.replaceAll("zfg", "nevoeiro");
-      condicao = condicao.replaceAll("zbcfg", "nevoeiro de superfície");
-      condicao = condicao.replaceAll("zhz", "névoa seca");
-      condicao = condicao.replaceAll("zra", "chuva moderada");
-      condicao = condicao.replaceAll("z+ra", "chuva forte");
-      condicao = condicao.replaceAll("z-ra", "chuva leve");
-      condicao = condicao.replaceAll("zdz", "chuvisco");
-      condicao = condicao.replaceAll("z+sh", "pancadas de chuva forte");
-      condicao = condicao.replaceAll("zsh", "pancadas de chuva");
-      condicao = condicao.replaceAll("zg", "rajadas de vento");
-      condicao = condicao.replaceAll("cb", "nuvens convectivas (CB)");
-      condicao = condicao.replaceAll("zcb", "formação de nuvens convectivas (CB)");
+      condicao = substituiAtalhos(condicao);
+      
       if (condicao in briefing[GRUPOS[i][0]]) {
         let el = briefing[GRUPOS[i][0]];
         let elCondicao = el[condicao];
@@ -324,22 +331,7 @@ const gerarBriefingSemHorarios = function () {
         condicao = condicao.replaceAll(item[0], ``);
       });
       //atalhos de condição
-      condicao = condicao.replaceAll("ztsra", "trovoadas com chuva");
-      condicao = condicao.replaceAll(
-        "zrtv",
-        "restrição de teto e visibilidade"
-      );
-      condicao = condicao.replaceAll("zrt", "restrição de teto");
-      condicao = condicao.replaceAll("zrv", "restrição de visibilidade");
-      condicao = condicao.replaceAll("zbr", "névoa úmida");
-      condicao = condicao.replaceAll("zfg", "nevoeiro");
-      condicao = condicao.replaceAll("zhz", "névoa seca");
-      condicao = condicao.replaceAll("zra", "chuva moderada");
-      condicao = condicao.replaceAll("z+ra", "chuva forte");
-      condicao = condicao.replaceAll("z-ra", "chuva leve");
-      condicao = condicao.replaceAll("zdz", "chuvisco");
-      condicao = condicao.replaceAll("z+sh", "pancadas de chuva forte");
-      condicao = condicao.replaceAll("zsh", "pancadas de chuva");
+      condicao = substituiAtalhos(condicao);
       if (condicao in briefing[GRUPOS[i][0]]) {
         let el = briefing[GRUPOS[i][0]];
         let elCondicao = el[condicao];
