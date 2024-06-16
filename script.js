@@ -219,8 +219,8 @@ const substituiAtalhos = function(condicao){
   condicao = condicao.replaceAll("z+sh", "pancadas de chuva forte");
   condicao = condicao.replaceAll("zsh", "pancadas de chuva");
   condicao = condicao.replaceAll("zg", "rajadas de vento");
-  condicao = condicao.replaceAll("cb", "nuvens convectivas (CB)");
   condicao = condicao.replaceAll("zcb", "formação de nuvens convectivas (CB)");
+  condicao = condicao.replaceAll("cb", "nuvens convectivas (CB)");
   return condicao;
 }
 
