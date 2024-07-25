@@ -223,6 +223,7 @@ const substituiAtalhos = function(condicao){
   condicao = condicao.replaceAll("zg", "rajadas de vento");
   condicao = condicao.replaceAll("zcb", "formação de nuvens convectivas (CB)");
   condicao = condicao.replaceAll("cb", "nuvens convectivas (CB)");
+  condicao = condicao.replaceAll("zfu", "fumaça");
   return condicao;
 }
 
