@@ -68,7 +68,6 @@ const briefing = {
     "SBZM.IZA",
     "SBPA.POA.principal",
     "SBCX.CXJ",
-    "SBCO.QNS.principal", //adicionado durante contingência de POA
     "SBUG.URG",
     "SBBG.BGX",
     "SBPK.PET",
