@@ -2,7 +2,15 @@
 
 const briefing = {
   "tma-rj": ["SBGL.GIG.principal", "SBRJ.SDU.principal"],
-  "tma-sp": ["SBGR.GRU.principal", "SBSP.CGH.principal", "SBKP.VCP.principal"],
+  "tma-sp": [
+    "SBGR.GRU.principal",
+    "SBSP.CGH.principal",
+    "SBKP.VCP.principal",
+    "SBJH.JHF",
+    "SBMT.RTE",
+    "SBJD.QDV",
+    "SDCO.SOD",
+  ],
   "fir-az": [
     "SBSL.SLZ.principal",
     "SBIZ.IMP.principal",
@@ -87,6 +95,8 @@ const briefing = {
     "SBDO.DOU",
   ],
 };
+
+let exclusivosJH = ["SBJH.JHF", "SBMT.RTE", "SBJD.QDV", "SDCO.SOD"];
 // Cria o array para iteração dos grupos e aeródromos
 const GRUPOS = Object.entries(briefing);
 
@@ -195,17 +205,11 @@ const gerarCampos = function () {
 };
 
 //Atalhos
-const substituiAtalhos = function(condicao){
+const substituiAtalhos = function (condicao) {
   condicao = condicao.replaceAll("ztsra", "trovoadas com chuva");
   condicao = condicao.replaceAll("zts", "trovoadas");
-  condicao = condicao.replaceAll(
-    "zrtv",
-    "restrição de teto e visibilidade"
-  );
-  condicao = condicao.replaceAll(
-    "zrvt",
-    "restrição de teto e visibilidade"
-  );
+  condicao = condicao.replaceAll("zrtv", "restrição de teto e visibilidade");
+  condicao = condicao.replaceAll("zrvt", "restrição de teto e visibilidade");
   condicao = condicao.replaceAll("zrt", "restrição de teto");
   condicao = condicao.replaceAll("zrv", "restrição de visibilidade");
   condicao = condicao.replaceAll("zbr", "névoa úmida");
@@ -219,12 +223,15 @@ const substituiAtalhos = function(condicao){
   condicao = condicao.replaceAll("z-dz", "chuvisco leve");
   condicao = condicao.replaceAll("z+sh", "pancadas de chuva forte");
   condicao = condicao.replaceAll("zsh", "pancadas de chuva");
+  condicao = condicao.replace(/zg(\d{2})/g, (match, p1) => {
+    return `rajadas de vento de até ${p1} kt`;
+  });
   condicao = condicao.replaceAll("zg", "rajadas de vento");
   condicao = condicao.replaceAll("zcb", "formação de nuvens convectivas (CB)");
   condicao = condicao.replaceAll("cb", "nuvens convectivas (CB)");
   condicao = condicao.replaceAll("zfu", "fumaça");
   return condicao;
-}
+};
 
 // Chamada da função ao carregar a página
 gerarCampos();
@@ -238,6 +245,8 @@ const gerarBriefingComHorarios = function () {
     };
     // Lê cada input e se não for nulo insere o briefing pago se não existir, ou se já existir outro adiciona o aerodromo igual
     for (let j = 0; j < GRUPOS[i][1].length; j++) {
+      // Pula os aeroportos que são exclusivos do briefing Caratina
+      if (exclusivosJH.indexOf(GRUPOS[i][1][j]) !== -1) continue;
       // Se não houver briefing para o aerodromo iterado, o próximo é avaliado
       let input = document.getElementById(GRUPOS[i][1][j]);
       //if (!input.value) continue
@@ -287,7 +296,7 @@ const gerarBriefingComHorarios = function () {
       });
       //atalhos de condição
       condicao = substituiAtalhos(condicao);
-      
+
       if (condicao in briefing[GRUPOS[i][0]]) {
         let el = briefing[GRUPOS[i][0]];
         let elCondicao = el[condicao];
@@ -310,6 +319,8 @@ const gerarBriefingSemHorarios = function () {
     };
     // Lê cada input e se não for nulo insere o briefing pago se não existir, ou se já existir outro adiciona o aerodromo igual
     for (let j = 0; j < GRUPOS[i][1].length; j++) {
+      // Pula os aeroportos que são exclusivos do briefing Caratina
+      if (exclusivosJH.indexOf(GRUPOS[i][1][j]) !== -1) continue;
       // Se não houver briefing para o aerodromo iterado, o próximo é avaliado
       let input = document.getElementById(GRUPOS[i][1][j]);
       //if (!input.value) continue
@@ -344,6 +355,68 @@ const gerarBriefingSemHorarios = function () {
       }
     }
   }
+  return briefing;
+};
+
+const gerarBriefingJH = function () {
+  let briefing = {};
+  const aeroportos = [
+    "SBJH.JHF",
+    "SBMT.RTE",
+    "SBJD.QDV",
+    "SDCO.SOD",
+    "SBKP.VCP.principal",
+    "SBSP.CGH.principal",
+    "SBGR.GRU.principal",
+  ];
+  aeroportos.forEach((ad) => {
+    let input = document.getElementById(ad);
+    if (!input.value) {
+      briefing[ad] = "Sem previsão significativa";
+    } else {
+      let condicao = input.value.toLowerCase();
+      let horarios_de_ate = [...condicao.matchAll(/\d+-\d+/g)];
+      horarios_de_ate.forEach((item) => {
+        condicao = condicao.replaceAll(
+          item[0],
+          `(${
+            item[0].split("-")[0].length < 2
+              ? "0" + item[0].split("-")[0]
+              : item[0].split("-")[0]
+          }:00 UTC às ${
+            item[0].split("-")[1].length < 2
+              ? "0" + item[0].split("-")[1]
+              : item[0].split("-")[1]
+          }:00 UTC)`
+        );
+      });
+      let horarios_a_partir = [...condicao.matchAll(/\d+-/g)];
+      horarios_a_partir.forEach((item) => {
+        condicao = condicao.replaceAll(
+          item[0],
+          `(a partir de ${
+            item[0].split("-")[0].length < 2
+              ? "0" + item[0].split("-")[0]
+              : item[0].split("-")[0]
+          }:00 UTC)`
+        );
+      });
+      let horarios_ate = [...condicao.matchAll(/-\d+/g)];
+      horarios_ate.forEach((item) => {
+        condicao = condicao.replaceAll(
+          item[0],
+          `(até ${
+            item[0].split("-")[1].length < 2
+              ? "0" + item[0].split("-")[1]
+              : item[0].split("-")[1]
+          }:00 UTC)`
+        );
+      });
+      //atalhos de condição
+      condicao = substituiAtalhos(condicao);
+      briefing[ad] = "Previsão de " + condicao;
+    }
+  });
   return briefing;
 };
 
@@ -470,6 +543,34 @@ const imprimeBriefingComHorarios = function () {
   document.getElementById("resultado").appendChild(tabela);
 };
 
+const imprimeBriefingJH = function () {
+  limpaTabela();
+  document.getElementById("resultado");
+  // Gera o briefing
+  let briefing = gerarBriefingJH();
+  // Cria a tabela para exibição
+  let tabela = document.createElement("table");
+  tabela.classList.add("abr");
+  // Criar cabeçalho
+  let cabecalho = document.createElement("tr");
+  let th = document.createElement("th");
+  th.setAttribute("colspan", 2);
+  th.textContent = "PREVISÕES SIGNIFICATIVAS";
+  cabecalho.appendChild(th);
+  tabela.appendChild(cabecalho);
+  for (const [ad, previsao] of Object.entries(briefing)) {
+    let tr = document.createElement("tr");
+    let td1 = document.createElement("td");
+    td1.textContent = icao(ad);
+    tr.appendChild(td1);
+    let td2 = document.createElement("td");
+    td2.textContent = previsao;
+    tr.appendChild(td2);
+    tabela.appendChild(tr);
+  }
+  document.getElementById("resultado").appendChild(tabela);
+};
+
 // Limpa a tabela para nova exibição
 const limpaTabela = function () {
   while (document.getElementById("resultado").firstChild) {
@@ -491,4 +592,10 @@ document
   .addEventListener("click", () => {
     const tabela = document.querySelector("table");
     tabela.setAttribute("class", "coordenacao");
+  });
+document
+  .getElementById("btnImprimeBriefingJH")
+  .addEventListener("click", () => {
+    const tabela = document.querySelector("table");
+    tabela.setAttribute("class", "abr");
   });
