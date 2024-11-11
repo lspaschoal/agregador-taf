@@ -1,7 +1,7 @@
 // Grupos de localidades. Cada grupo gera um fieldset com o nome da propriedade, onde são criados os inputs para cada aerodromo
 
 const briefing = {
-  "tma-rj": ["SBGL.GIG.principal", "SBRJ.SDU.principal"],
+  "tma-rj": ["SBGL.GIG.principal", "SBRJ.SDU.principal", "SBJR.RRJ"],
   "tma-sp": [
     "SBGR.GRU.principal",
     "SBSP.CGH.principal",
