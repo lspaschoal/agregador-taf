@@ -106,6 +106,25 @@ const icao = (localidade) => localidade.substring(0, 4);
 // Retorna o codigo iata de uma localidade selecionada
 const iata = (localidade) => localidade.substring(5, 8);
 
+function obterDataHoraCom3Horas() {
+  // Cria um objeto Date com a data e hora atuais
+  const dataAtual = new Date();
+
+  // Acrescenta 6 horas
+  dataAtual.setHours(dataAtual.getHours() + 3);
+
+  // Obtém os componentes de ano, mês, dia e hora
+  const ano = dataAtual.getFullYear();
+  const mes = String(dataAtual.getMonth() + 1).padStart(2, '0'); // Mês começa do 0, então adiciona 1
+  const dia = String(dataAtual.getDate()).padStart(2, '0');
+  const hora = String(dataAtual.getHours()).padStart(2, '0');
+
+  // Formata e retorna a string no formato AAAAMMDDHH
+  return `${ano}${mes}${dia}${hora}`;
+}
+
+const data_hora_pesquisa = obterDataHoraCom3Horas();
+
 // Retorna a lista de ICAOs cadastrados
 const getAllICAO = () => {
   let icaos = [];
@@ -175,7 +194,7 @@ const gerarCampos = function () {
     getAllICAO().forEach((icao) => {
       requisicoes.push(
         getData(
-          `https://api-redemet.decea.mil.br/mensagens/taf/${icao}?api_key=6vmvTQDP1t8thEEAUkCCj4z4TRjrJLcb561p1SRi`
+          `https://api-redemet.decea.mil.br/mensagens/taf/${icao}?api_key=6vmvTQDP1t8thEEAUkCCj4z4TRjrJLcb561p1SRi&data_ini=${data_hora_pesquisa}&data_fim=${data_hora_pesquisa}`
         )
       );
     });
