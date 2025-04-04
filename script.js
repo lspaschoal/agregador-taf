@@ -1,16 +1,4 @@
 // Grupos de localidades. Cada grupo gera um fieldset com o nome da propriedade, onde são criados os inputs para cada aerodromo
-const DATAHORA = new Date();
-const HORA = DATAHORA.getUTCHours();
-function horaProximoTAF(hora){
-  if(hora > 21){
-    return "00";
-  }else if(hora > 18){
-    return "21";
-  }else if(hora > 15){
-    return "18";
-  }
-  return "03";
-}
 const briefing = {
   "tma-rj": ["SBGL.GIG.principal", "SBRJ.SDU.principal", "SBJR.RRJ"],
   "tma-sp": [
@@ -117,6 +105,20 @@ const icao = (localidade) => localidade.substring(0, 4);
 // Retorna o codigo iata de uma localidade selecionada
 const iata = (localidade) => localidade.substring(5, 8);
 
+function obterDataHoraCom3Horas() {
+  const dataAtual = new Date();
+  // Acrescenta 6 horas
+  dataAtual.setHours(dataAtual.getHours() + 3);
+  // Obtém os componentes de ano, mês, dia e hora
+  const ano = dataAtual.getFullYear();
+  const mes = String(dataAtual.getMonth() + 1).padStart(2, '0'); // Mês começa do 0, então adiciona 1
+  const dia = String(dataAtual.getDate()).padStart(2, '0');
+  const hora = String(dataAtual.getHours()).padStart(2, '0');
+  // Formata e retorna a string no formato AAAAMMDDHH
+  return `${ano}${mes}${dia}${hora}`;
+}
+const data_hora_pesquisa = obterDataHoraCom3Horas();
+
 // Retorna a lista de ICAOs cadastrados
 const getAllICAO = () => {
   let icaos = [];
@@ -186,7 +188,7 @@ const gerarCampos = function () {
     getAllICAO().forEach((icao) => {
       requisicoes.push(
         getData(
-          `https://api-redemet.decea.mil.br/mensagens/taf/${icao}?api_key=6vmvTQDP1t8thEEAUkCCj4z4TRjrJLcb561p1SRi`
+          `https://api-redemet.decea.mil.br/mensagens/taf/${icao}?api_key=6vmvTQDP1t8thEEAUkCCj4z4TRjrJLcb561p1SRi&data_ini=${data_hora_pesquisa}&data_fim=${data_hora_pesquisa}`
         )
       );
     });
@@ -330,6 +332,8 @@ const gerarBriefingSemHorarios = function () {
     };
     // Lê cada input e se não for nulo insere o briefing pago se não existir, ou se já existir outro adiciona o aerodromo igual
     for (let j = 0; j < GRUPOS[i][1].length; j++) {
+      // Pula os aeroportos que são exclusivos do briefing Caratina
+      if (exclusivosJH.indexOf(GRUPOS[i][1][j]) !== -1) continue;
       // Se não houver briefing para o aerodromo iterado, o próximo é avaliado
       let input = document.getElementById(GRUPOS[i][1][j]);
       //if (!input.value) continue
