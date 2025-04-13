@@ -242,6 +242,10 @@ const substituiAtalhos = function (condicao) {
     return `rajadas de vento de até ${p1} kt`;
   });
   condicao = condicao.replaceAll("zg", "rajadas de vento");
+  condicao = condicao.replace(/zvrb(\d+)/g, (match, p1) => {
+    return `vento variável com velocidade de ${p1} kt`;
+  });
+  condicao = condicao.replaceAll("zvrb", "vento variável");
   condicao = condicao.replaceAll("zcb", "formação de nuvens convectivas (CB)");
   condicao = condicao.replaceAll("cb", "nuvens convectivas (CB)");
   condicao = condicao.replaceAll("zfu", "fumaça");
